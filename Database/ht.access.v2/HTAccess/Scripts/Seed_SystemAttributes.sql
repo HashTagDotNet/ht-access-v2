@@ -65,8 +65,9 @@ EXEC #Seed_SystemAttributes @Name='do',@Alias='domain', @Description='Root conta
 EXEC #Seed_SystemAttributes @Name='lastUpdate',@Alias='domain', @Description='Last time this object was modified', @TypeCode='date',@AllowMultipleValues=0,@AllowUserModification=0
 EXEC #Seed_SystemAttributes @Name='objectClass',@Alias=null, @Description='Name of object class', @TypeCode='string',@AllowMultipleValues=1,@AllowUserModification=1
 EXEC #Seed_SystemAttributes @Name='ac',@Alias='actor', @Description='Identifier of a particular actor that is demanding access to objects', @TypeCode='string',@AllowMultipleValues=0
-EXEC #Seed_SystemAttributes @Name='ap',@Alias='application', @Description='Identifier for this application across entire directory ', @TypeCode='string',@AllowMultipleValues=0
-EXEC #Seed_SystemAttributes @Name='ou',@Alias='OrgUnit', @Description='Root org unit identifier in this directory ', @TypeCode='string',@AllowMultipleValues=0
+EXEC #Seed_SystemAttributes @Name='ap',@Alias='application', @Description='Identifier for this application across entire directory', @TypeCode='string',@AllowMultipleValues=0
+EXEC #Seed_SystemAttributes @Name='o',@Alias='Org', @Description='Root org unit identifier in this directory', @TypeCode='string',@AllowMultipleValues=0
+EXEC #Seed_SystemAttributes @Name='ou',@Alias='OrgUnit', @Description='Sub division within an organization', @TypeCode='string',@AllowMultipleValues=0
 EXEC #Seed_SystemAttributes @Name='dg',@Alias='DomainGroup', @Description='Group of actors or objects containing actors not necessarily bound to other containers', @TypeCode='string',@AllowMultipleValues=0
 
 ROLLBACK

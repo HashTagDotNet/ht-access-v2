@@ -14,4 +14,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ObjectAttributeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b1fc6f5a-d621-4ef7-af55-f48b22b94f02" ChangeDateTime="09/19/2022 05:34:26">
+    <Property Name="ElementName" Value="[dbo].[ChangeLog].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ChangeLog]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ChangeLogId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d58ccea9-0ba6-41a1-9eb3-c9138608c47c" ChangeDateTime="09/19/2022 17:35:41">
+    <Property Name="ElementName" Value="[Access].[ObjectAttributes].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Access].[ObjectAttributes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Attribute" />
+  </Operation>
 </Operations>

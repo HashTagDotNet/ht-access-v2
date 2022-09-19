@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [Access].[Objects](
 	[ObjectId] [int] IDENTITY(1,1) NOT NULL,
 	[ObjectUid] [char](32) NOT NULL,
-	[DomainId] [int] NULL,
 	
 	[DN] [nvarchar](max) NOT NULL,
 	[DN_Hash] [binary](64) NOT NULL,
@@ -15,6 +14,7 @@
 	[Parent_DN] NVARCHAR(max) NULL,
 	[Parent_DN_Hash] [binary](64) NULL,
 
+    [UpdatedOn] DATETIME NULL DEFAULT getutcdate(), 
     CONSTRAINT [PK_Objects] PRIMARY KEY ([ObjectId]),
 	CONSTRAINT [FK_Objects_ToObjects] FOREIGN KEY ([Parent_DN_ID]) REFERENCES [Access].[Objects]([ObjectId]),    
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
