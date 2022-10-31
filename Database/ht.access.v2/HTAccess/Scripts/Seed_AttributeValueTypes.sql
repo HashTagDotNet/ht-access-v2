@@ -2,7 +2,7 @@
 GO
 DROP PROC IF EXISTS #Seed_AttributeTypes
 GO
-SET IDENTITY_INSERT [Access].[AttributeTypes]  ON
+SET IDENTITY_INSERT [Access].[AttributeValueTypes]  ON
 GO
 CREATE PROC #Seed_AttributeTypes (
 	@Id int,
@@ -34,7 +34,9 @@ EXEC #Seed_AttributeTypes @Id=1, @TypeName="string"
 EXEC #Seed_AttributeTypes @Id=2, @TypeName="number"
 EXEC #Seed_AttributeTypes @Id=3, @TypeName="date"
 EXEC #Seed_AttributeTypes @Id=4, @TypeName="boolean"
-SET IDENTITY_INSERT [Access].[AttributeTypes]  OFF
+EXEC #Seed_AttributeTypes @Id=5, @TypeName="link"
+
+SET IDENTITY_INSERT [Access].[AttributeValueTypes]  OFF
 ROLLBACK
 --COMMIT
 GO

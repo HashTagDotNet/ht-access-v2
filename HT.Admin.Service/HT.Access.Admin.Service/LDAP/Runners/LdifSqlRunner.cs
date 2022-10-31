@@ -14,29 +14,30 @@ using Microsoft.Data.SqlClient;
 
 namespace HT.Access.Admin.Service.LDAP.Runners
 {
-    public class LdifSqlRunner:ILdifRunner
+    public class LdifSqlRunner : ILdifRunner
     {
         private readonly IDbConnector _db;
         private readonly ICryptographyService _crypto;
 
 
-        public LdifSqlRunner(IDbConnector db,ICryptographyService cryptoService)
+        public LdifSqlRunner(IDbConnector db, ICryptographyService cryptoService)
         {
             _db = db;
             _crypto = cryptoService;
         }
 
-        public async Task Run(List<LdifCommandBase> commands,CancellationToken cancellationToken=default)
+        public async Task Run(List<LdifCommandBase> commands, CancellationToken cancellationToken = default)
         {
             if (commands == null || commands.Count == 0) return;
 
             using var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
             await using var cn = await _db.RW.OpenConnection(cancellationToken);
 
-            LdifCommandBase activeCommand=null;
+            LdifCommandBase activeCommand = null;
+            int successfulExecutionCount = 0;
             try
             {
-                
+
                 foreach (var ldifCommand in commands)
                 {
                     activeCommand = ldifCommand;
@@ -46,10 +47,18 @@ namespace HT.Access.Admin.Service.LDAP.Runners
                             await runAddCommand(activeCommand, cn, cancellationToken).ConfigureAwait(false);
                             break;
                     }
-                    activeCommand.ExecuteStatus = LdifStatusCode.Success;
-                }
 
-                ts.Complete();
+                }
+                successfulExecutionCount = commands.Count(l => l.ExecuteStatus == LdifStatusCode.Success);
+
+                if (successfulExecutionCount == commands.Count) // only complete transaction when the entire command set completed successfully
+                {
+                    ts.Complete();
+                }
+                else
+                {
+                    ts.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -61,14 +70,27 @@ namespace HT.Access.Admin.Service.LDAP.Runners
             }
             finally
             {
-                await LogCommands(commands,cn,cancellationToken).ConfigureAwait(false);
+                if (successfulExecutionCount != commands.Count)
+                {
+                    foreach (var cmd in commands.Where(c => c.ExecuteStatus == LdifStatusCode.Success)) // change any successful commands to 'BatchRollBack' so we know it completed successfully but batch was rolled back
+                    {
+                        cmd.ExecuteStatus = LdifStatusCode.BatchRollback;
+                        cmd.ExecuteStatusMessage = "Successful completion. Batch rolled back";
+                    }
+                }
+                await LogCommands(commands, cn, cancellationToken).ConfigureAwait(false);
+                if (cn != null && cn.State == ConnectionState.Open)
+                {
+                    await cn.CloseAsync().ConfigureAwait(false);
+                    await cn.DisposeAsync().ConfigureAwait(false);
+                }
             }
-            
+
         }
 
         private async Task LogCommands(List<LdifCommandBase> commands, SqlConnection cn, CancellationToken cancellationToken)
         {
-            
+
             foreach (var cmd in commands)
             {
                 await logCommands(cmd, cn, cancellationToken);
@@ -98,9 +120,9 @@ SELECT cast(@@Identity as int)
             sqlCmd.CommandType = CommandType.Text;
             sqlCmd.CommandText = sql;
             sqlCmd.AddVarchar("DN", ldifCmd.Dn.ToString())
-                .AddVarchar("ChangeType",ldifCmd.ChangeType.ToString().ToLower())
-                .AddVarchar("StatusCode",ldifCmd.ExecuteStatus.ToString())
-                .AddNVarchar("Message",ldifCmd.ExecuteStatusMessage);
+                .AddVarchar("ChangeType", ldifCmd.ChangeType.ToString().ToLower())
+                .AddVarchar("StatusCode", ldifCmd.ExecuteStatus.ToString())
+                .AddNVarchar("Message", ldifCmd.ExecuteStatusMessage);
 
             var logId = await _db.Execute.Scalar<int>(sqlCmd, cancellationToken: cancellationToken).ConfigureAwait(false);
             sql = @"
@@ -127,9 +149,20 @@ INSERT INTO Access.ChangeLogDetails (
 
         private async Task runAddCommand(LdifCommandBase ldifCommand, SqlConnection cn, CancellationToken cancellationToken)
         {
+            byte[] dnHash = _crypto.Hash(ldifCommand.Dn.Dn);
+            byte[] rdnHash = _crypto.Hash(ldifCommand.Dn.Rdn.Value);
+            byte[] parentDnHash = _crypto.Hash(ldifCommand.ParentDn.Dn);
+
+            var objectAllReadyExists = await objectExistsInDirectory(cn,dnHash, cancellationToken)
+                .ConfigureAwait(false);
+            if (objectAllReadyExists)
+            {
+                ldifCommand.ExecuteStatus = LdifStatusCode.EntryAlreadyExists;
+                return;
+            }
             var sql = @"
-INSERT INTO Access.Objects (
-    ObjectUid,
+INSERT INTO Access.Entries (
+    EntryUid,
     
     DN,
     DN_Hash,
@@ -170,18 +203,18 @@ SELECT CAST(@@identity AS INT)
 
             cmd.AddVarchar("ObjectUid", Guid.NewGuid().ToString().Replace("-", ""));
             cmd.AddNVarchar("DN", ldifCommand.Dn.ToString());
-            cmd.AddVarBinary("DN_Hash", ldifCommand.DnHash);
+            cmd.AddVarBinary("DN_Hash",dnHash);
 
             cmd.AddVarchar("RDN", ldifCommand.Dn.Rdn.ToString());
-            cmd.AddBinary("RDN_Hash", ldifCommand.RdnHash);
+            cmd.AddBinary("RDN_Hash", rdnHash);
             cmd.AddNVarchar("RDN_Attribute", ldifCommand.Dn.Rdn.Attribute);
             cmd.AddNVarchar("RDN_Value", ldifCommand.Dn.Rdn.Value);
 
             cmd.AddNullable("Parent_DN_Id", null);
             cmd.AddNVarchar("Parent_DN", ldifCommand.Dn.ParentDn);
-            cmd.AddBinary("Parent_DN_Hash", ldifCommand.ParentDnHash);
+            cmd.AddBinary("Parent_DN_Hash", parentDnHash);
 
-            var objectId =await _db.Execute.Scalar<int>(cmd, -1, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var objectId = await _db.Execute.Scalar<int>(cmd, -1, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             sql = @"
 INSERT INTO Access.ObjectAttributes (
@@ -207,6 +240,30 @@ INSERT INTO Access.ObjectAttributes (
 
                 await _db.Execute.NonQuery(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
+
+            ldifCommand.ExecuteStatus = LdifStatusCode.Success;
+        }
+
+        private async Task<bool> objectExistsInDirectory(SqlConnection cn, byte[] objectHash, CancellationToken cancellationToken = default)
+        {
+            var sql = @"
+SELECT TOP(1)
+	ObjectId
+FROM	
+	Access.[Objects] WITH (NOLOCK)
+WHERE
+	DN_Hash = @ObjectHash
+
+SELECT cast(@@ROWCOUNT as int) 'ObjectsFound'
+";
+            using var cmd = cn.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.CommandType = CommandType.Text;
+            cmd.AddBinary("ObjectHash", objectHash);
+
+            var rowCount = await _db.Execute.Scalar<int>(cmd, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+            return rowCount >= 1;
         }
     }
 }

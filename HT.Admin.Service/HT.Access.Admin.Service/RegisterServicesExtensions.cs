@@ -1,4 +1,6 @@
-﻿using HT.Access.Admin.Service.Configuration;
+﻿using HT.Access.Admin.Service.AccessControl;
+using HT.Access.Admin.Service.AccessControl.Interfaces;
+using HT.Access.Admin.Service.Configuration;
 using HT.Access.Admin.Service.Cryptography;
 using HT.Access.Admin.Service.Cryptography.Interfaces;
 using HT.Access.Admin.Service.LDAP;
@@ -19,11 +21,13 @@ namespace HT.Access.Admin.Service
             services.TryAddSingleton<ICryptographyService, CryptographyService>();
             services.TryAddSingleton<ILdifBuilder,LdifBuilder>();
             services.TryAddSingleton<ILdifRunner,LdifSqlRunner>();
+
+            services.AddSingleton<IDomainService, DomainService>();
         }
 
         public static void RegisterHTAccessPersisters(this IServiceCollection services, IConfiguration configuration)
         {
-
+            services.AddSingleton<IAdminPersister, AdminSqlPersister>();
         }
 
         public static void LoadHTAccessConfiguration(this IServiceCollection services, IConfiguration configuration)

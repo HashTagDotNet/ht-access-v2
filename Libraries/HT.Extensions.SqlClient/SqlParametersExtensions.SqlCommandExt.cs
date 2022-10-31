@@ -1,11 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace HT.Extensions.SqlClient
 {
@@ -83,6 +78,19 @@ namespace HT.Extensions.SqlClient
             command.Parameters.AddDouble(parameterName, parameterValue);
             return command;
         }
+        public static SqlCommand AddBigInt(this SqlCommand command, string parameterName, long parameterValue, ParameterDirection parameterDirection = ParameterDirection.Input)
+        {
+            command.Parameters.AddBigInt(parameterName, parameterValue, parameterDirection);
+            return command;
+        }
+
+        public static SqlCommand AddBigInt(this SqlCommand command, string parameterName, long? parameterValue,
+            ParameterDirection parameterDirection = ParameterDirection.Input)
+        {
+            command.Parameters.AddBigInt(parameterName, parameterValue, parameterDirection);
+            return command;
+        }
+
 
     }
 }

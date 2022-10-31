@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using HT.Access.Admin.Service.Cryptography.Interfaces;
 
 namespace HT.Access.Admin.Service.LDAP.Models
 {
@@ -27,11 +24,8 @@ namespace HT.Access.Admin.Service.LDAP.Models
         public LdifStatusCode ExecuteStatus { get; set; }
         public string ExecuteStatusMessage { get; set; }
         public List<KeyValuePair<string, string>> CommandLines => _lines;
-        public byte[] DnHash { get; private set; }
-        public byte[] ParentDnHash { get; private set; }
-        public byte[] RdnHash { get; private set; }
-
-        public LdifCommandBase(DistinguishedName dn, DnChangeType changeType,ICryptographyService cryptoService)
+        
+        public LdifCommandBase(DistinguishedName dn, DnChangeType changeType)
         {
             Dn = dn;
             ChangeType = changeType;
@@ -49,12 +43,7 @@ namespace HT.Access.Admin.Service.LDAP.Models
 
             addLine("dn",dn.ToString());
             addLine(COMMAND_CHANGE_TYPE,commandString);
-            DnHash = cryptoService.Hash(dn.ToString().ToLower());
-            if (ParentDn != null)
-            {
-                ParentDnHash = cryptoService.Hash(ParentDn.ToString().ToLower());
-            }
-            RdnHash = cryptoService.Hash(dn.Rdn.ToString().ToLower());
+        
         }
         
         public LdifCommandBase AddAttribute(string attribute, params string[] values)

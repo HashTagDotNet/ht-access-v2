@@ -15,13 +15,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HT.Extensions.SqlClient", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HT.Access.Admin.Service", "HT.Access.Admin.Service", "{22679E05-C474-4A69-B1F7-B39C6D576BC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HT.Access.Admin.Service", "HT.Admin.Service\HT.Access.Admin.Service\HT.Access.Admin.Service.csproj", "{3CC8EA59-8F53-47FB-AED1-42A653296D3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HT.Access.Admin.Service", "HT.Admin.Service\HT.Access.Admin.Service\HT.Access.Admin.Service.csproj", "{3CC8EA59-8F53-47FB-AED1-42A653296D3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HT.Access.Admin.Service.Tests", "HT.Admin.Service\HT.Admin.Service.Tests\HT.Access.Admin.Service.Tests.csproj", "{14B42C4E-0301-42E6-9EAB-896082811F03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HT.Access.Admin.Service.Tests", "HT.Admin.Service\HT.Admin.Service.Tests\HT.Access.Admin.Service.Tests.csproj", "{14B42C4E-0301-42E6-9EAB-896082811F03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HT.Access.Hosts", "HT.Access.Hosts", "{B106062C-600E-4F0A-9E58-B681B304ED0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HT.Access.Api", "HT.Access.Hosts\HT.Access.Api\HT.Access.Api.csproj", "{408D8240-65F1-44AC-9977-3EA5CD7F64AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HT.Access.Api", "HT.Access.Hosts\HT.Access.Api\HT.Access.Api.csproj", "{408D8240-65F1-44AC-9977-3EA5CD7F64AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__SolutionItems", "__SolutionItems", "{12103264-922E-4C0D-ADED-BED17ACD3932}"
+	ProjectSection(SolutionItems) = preProject
+		__SolutionItems\LDAPModels.ldif = __SolutionItems\LDAPModels.ldif
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

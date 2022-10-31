@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [Access].[Attributes]
 (
 	[AttributeId] INT NOT NULL PRIMARY KEY IDENTITY, 
-	[AttributeUid] char(32) NOT NULL DEFAULT (lower(replace(CONVERT([varchar](50),newid()),'-',''))),
 	[AttributeTypeId] INT NOT NULL DEFAULT 0,
 	[IsObsolete] bit NOT NULL DEFAULT 0,
 	[Name] NVARCHAR(60) NOT NULL,

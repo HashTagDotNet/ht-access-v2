@@ -28,4 +28,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Attribute" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2f9bc501-e638-4ccf-b075-d731887b6183" ChangeDateTime="10/30/2022 06:37:44">
+    <Property Name="ElementName" Value="[dbo].[ObjectClassAttributes].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ObjectClassAttributes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ObjectClassAttributeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f9294e68-f3e0-4ade-a3d3-95cdbd03396a" ChangeDateTime="10/30/2022 06:40:29">
+    <Property Name="ElementName" Value="[dbo].[ObjectClassAttributes].[[ObjectAttributeId]]]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ObjectClassAttributes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ObjectAttributeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="18debecb-bd14-4d8c-a627-88cf2c899405" ChangeDateTime="10/30/2022 15:56:19">
+    <Property Name="ElementName" Value="[Access].[Attributes].[ObjectAttributeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Access].[Attributes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AttributeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5d7ca51b-8f5c-4ffe-8849-e11f3b76cad8" ChangeDateTime="10/30/2022 15:57:05">
+    <Property Name="ElementName" Value="[Access].[ObjectClassAttributes].[ObjectAttributeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Access].[ObjectClassAttributes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AttributeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4c647cc0-4ef3-4ca8-b154-c16778fb65ac" ChangeDateTime="10/30/2022 15:57:50">
+    <Property Name="ElementName" Value="[Access].[ObjectClasses].[ParentClassId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Access].[ObjectClasses]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ParentObjectClassId" />
+  </Operation>
 </Operations>

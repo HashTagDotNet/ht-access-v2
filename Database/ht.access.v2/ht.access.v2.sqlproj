@@ -64,13 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Access.sql" />
-    <Build Include="HTAccess\Tables\Objects.sql" />
+    <Build Include="HTAccess\Tables\Entries.sql" />
     <Build Include="HTAccess\Tables\Attributes.sql" />
     <Build Include="HTAccess\Tables\AttributeValueTypes.sql" />
-    <Build Include="HTAccess\Tables\Classes.sql" />
-    <Build Include="HTAccess\Tables\ObjectAttributes.sql" />
+    <Build Include="HTAccess\Tables\ObjectClasses.sql" />
+    <Build Include="HTAccess\Tables\EntryAttributes.sql" />
     <Build Include="HTAccess\Tables\ChangeLog.sql" />
     <Build Include="HTAccess\Tables\ChangeLogDetails.sql" />
+    <Build Include="HTAccess\Tables\ObjectClassAttributes.sql" />
+    <Build Include="HTAccess\StoredProcedure\Entries_Add.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ht.access.v2.refactorlog" />
@@ -78,7 +80,7 @@
   <ItemGroup>
     <None Include="HTAccess\Scripts\Seed_AttributeValueTypes.sql" />
     <None Include="ht.access.v2.publish.xml" />
-    <None Include="HTAccess\Scripts\Seed_SystemAttributes.sql" />
+    <None Include="HTAccess\Scripts\Seed_Attributes.sql" />
     <None Include="HTAccess\Scripts\Seed_ObjectClasses.sql" />
   </ItemGroup>
 </Project>

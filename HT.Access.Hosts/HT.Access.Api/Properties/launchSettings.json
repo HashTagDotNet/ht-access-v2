@@ -5,8 +5,8 @@
     "HT.Access.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchBrowser": false,
+    //  "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7151",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

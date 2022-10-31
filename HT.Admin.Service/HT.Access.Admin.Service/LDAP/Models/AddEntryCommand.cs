@@ -4,7 +4,7 @@ namespace HT.Access.Admin.Service.LDAP.Models
 {
     public class AddEntryCommand : LdifCommandBase
     {
-        public AddEntryCommand(DistinguishedName dn, ICryptographyService cryptoService, params string[] objectClasses) : base(dn, DnChangeType.Add, cryptoService)
+        public AddEntryCommand(DistinguishedName dn, ICryptographyService cryptoService, params string[] objectClasses) : base(dn, DnChangeType.Add)
         {
             if (objectClasses == null || objectClasses.Length == 0)
             {

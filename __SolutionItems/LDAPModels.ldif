@@ -1,0 +1,68 @@
+# schema definition
+
+# attribute definition
+# dc - domain context containing all other elements
+
+# ou - orgunit
+# ac - actor
+# dg - domain group - named group of actors scoped to domain.  
+# ap - application
+# ro - application role. Can be application/system defined or consumer defined and scoped to the owner
+# re - application resource (audit log)
+# op - possible operation(s) on application resource (audit-log, read, write, purge). Defined by application.
+# og - org unit group - named group of actors associated with a specific org unit
+# ag - named set of actors scoped to the root application.
+
+# object definition
+dn: cn=sysobjects
+changetype: modify
+add: objectClasses
+objectClasses: 
+	NAME 'dn'
+	DESC 'sdfasf '
+	SUP ( )
+	MUST ()
+	MAY ()
+--
+
+
+
+# domain object definition
+dn: do=domain
+orgUnit: ou=orgunit2, do=domain
+orgUnit: ou=orgunit1, do=domain
+application: ap=application1, do=domain
+application: ap=application2, do=domain
+
+# org unit
+dn: ou=orgunit1, do=domain
+
+# actor
+dn: ac=actor, do=domain
+
+# application
+dn: ap=application, do=domain
+
+# application role
+dn: ro=role, ap=application1, do=domain
+op: op=write, re=auditlog, ap=application1, do=domain
+
+# application securable resource
+dn: re=resource1, app=appliction1, do=domain
+
+# application allowed operations for resource
+dn: op=write, re=resource1, app=application1, do=domain
+
+# permission definiton
+
+# domain group
+dn: dg=domainGroup, do=domain
+member: ac=actor, do=domain
+member: ac=actor2, do=domain
+
+# orgunit group
+dn: og=orggoup1, ou=orgunit1, do=domain
+
+
+
+

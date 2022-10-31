@@ -194,6 +194,38 @@ namespace HT.Extensions.SqlClient
 
             return parameters.AddWithValue(parameterName, parameterValue);
         }
+        public static SqlParameter AddBigInt(this SqlParameterCollection parameters, string parameterName, long parameterValue, ParameterDirection parameterDirection = ParameterDirection.Input)
+        {
+            if (!parameterName.StartsWith('@')) parameterName = "@" + parameterName;
+
+            SqlParameter param = new SqlParameter(parameterName, SqlDbType.BigInt)
+            {
+                Direction = parameterDirection
+            };
+            parameters.Add(param);
+            return param;
+        }
+        public static SqlParameter AddBigInt(this SqlParameterCollection parameters, string parameterName, long? parameterValue, ParameterDirection parameterDirection = ParameterDirection.Input)
+        {
+           
+            if (!parameterName.StartsWith('@')) parameterName = "@" + parameterName;
+            SqlParameter param = new SqlParameter(parameterName, SqlDbType.BigInt)
+            {
+                Direction = parameterDirection
+            };
+            if (parameterValue == null)
+            {
+                param.Value = DBNull.Value;
+
+            }
+            else
+            {
+                param.Value = parameterValue.Value;
+            }
+            parameters.Add(param);
+
+            return param;
+        }
 
 
     }

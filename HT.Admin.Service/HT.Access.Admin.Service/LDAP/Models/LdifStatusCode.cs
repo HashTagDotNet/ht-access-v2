@@ -89,6 +89,11 @@ namespace HT.Access.Admin.Service.LDAP.Models
         /// It is the correct result code to use in the event that an internal error occurs within the server (although some servers mistakenly
         /// use operationsError (1) for this purpose), but the other result code may be used for additional kinds of problems as well.
         /// </summary>
-        Other = 80
+        Other = 80,
+
+        /// <summary>
+        /// A command in the LDIF file failed.  Successful batch commands status is set to 'batchRollback'
+        /// </summary>
+        BatchRollback = 100
     }
 }
