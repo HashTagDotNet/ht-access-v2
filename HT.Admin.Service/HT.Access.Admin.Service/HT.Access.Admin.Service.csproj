@@ -14,7 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\HT.Common\HT.Common.csproj" />
     <ProjectReference Include="..\..\Libraries\HT.Extensions.SqlClient\HT.Extensions.SqlClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Directory\Interfaces\" />
   </ItemGroup>
 
 </Project>

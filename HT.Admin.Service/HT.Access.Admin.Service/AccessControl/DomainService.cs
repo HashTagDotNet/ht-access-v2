@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using HT.Access.Admin.Service.AccessControl.Interfaces;
 using HT.Access.Admin.Service.AccessControl.Models;
-using HT.Access.Admin.Service.LDAP.Models;
 
 namespace HT.Access.Admin.Service.AccessControl
 {

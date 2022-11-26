@@ -29,7 +29,7 @@ BEGIN
 END
 GO
 BEGIN TRANSACTION
-EXEC #Seed_AttributeTypes @Id=0, @TypeName="any"
+EXEC #Seed_AttributeTypes @Id=0, @TypeName="unknown"
 EXEC #Seed_AttributeTypes @Id=1, @TypeName="string"
 EXEC #Seed_AttributeTypes @Id=2, @TypeName="number"
 EXEC #Seed_AttributeTypes @Id=3, @TypeName="date"

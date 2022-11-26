@@ -6,11 +6,11 @@ namespace HT.Access.Api.Controllers.PolicyAdminPoint
 {
     [Route("api/pap/[controller]")]
     [ApiController]
-    public class Domains : ControllerBase
+    public class DomainsController : ControllerBase
     {
         private readonly IDomainService _svc;
 
-        public Domains(IDomainService svc)
+        public DomainsController(IDomainService svc)
         {
             _svc = svc;
         }

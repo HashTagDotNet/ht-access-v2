@@ -29,9 +29,10 @@ namespace HT.Access.Admin.Service.LDAP
         }
         public AddEntryCommand AddEntry(DistinguishedName dn, params string[] objectClasses)
         {
-            var cmd = new AddEntryCommand(dn, _cryptoService, objectClasses);
-            _commands.Add(cmd);
-            return cmd;
+            throw new NotImplementedException();
+            //var cmd = new AddEntryCommand(dn, _cryptoService, objectClasses);
+            //_commands.Add(cmd);
+            //return cmd;
         }
 
         public List<LdifCommandBase> Commands => _commands;

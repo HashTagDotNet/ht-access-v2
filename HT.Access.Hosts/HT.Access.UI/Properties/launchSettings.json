@@ -1,0 +1,14 @@
+﻿{
+
+  "profiles": {
+    "WebUI": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7062;",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "localhost"
+      }
+    }
+  }
+}

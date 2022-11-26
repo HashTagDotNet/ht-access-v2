@@ -8,5 +8,6 @@ namespace HT.Access.Admin.Service.AccessControl.Models
 {
     public class OrgUnit:ObjectBase
     {
+
     }
 }

@@ -1,7 +1,7 @@
 # schema definition
 
 # attribute definition
-# dc - domain context containing all other elements
+# do - domain context containing all other elements/domain
 
 # ou - orgunit
 # ac - actor
@@ -63,6 +63,105 @@ member: ac=actor2, do=domain
 # orgunit group
 dn: og=orggoup1, ou=orgunit1, do=domain
 
+// schema
+{
+	"dn":"cn=subschemasubentry"
+	"changeType":"modify",
+	"add": "attributeType",
+	"type": " number, string, date, link",
+	"isObsolete":"true",
+	"name":"name",
+	"description":"description",
+	"allowMultipleValues":"true",
+	"allowUserModification":"false",
+	"alias":""
+}
 
+{
+	"options":{
+	},
+	"operations":[
+		{
+			"dn":"cn=subschemasubentry"
+			"add":"objectClass",
+			"name":"domain",
+			"parent":"top"
+			"must":[attributenames],
+			"may":[attributenames]
+		}
+	]
+}
+
+// entries
+{
+	"options":{
+		"continueOnError":"false"
+	},
+	operations: [
+	{
+	"dn":"do=test1",
+	"changeType":"add",
+	"objectClasses":["domain"],
+	"attributes":{
+		"do":"test1"
+		"description":"description"
+		}
+	"options":{
+		"ignoreIfExists":true
+	}
+	},
+
+	{
+		"dn":"do=test2",
+		"changeType":"modify",
+		"operations":[
+			{"add|replace|delete","telephonenumber","1-2.3.22"}
+		],
+		"options":{
+			"continueOnError":"true";
+		}
+	}
+	{
+		"dn":"ou=ou1,do=test2",
+		"changeType":"modrdn",
+		"operations":[
+			{"replace","ou","ou1a"},
+			{"delete","ou","ou1"}
+		]
+		}
+	},
+	{
+		"dn":"ou=ou1,do=test2",
+		"changeType":"moddn",
+		"operations":[			
+			{"newsuperior"} // new parent for item
+			{"newrdn",""}, // new rdn of this item in the parent 
+			{"delete","true"} // if "delete" then action is move, else action is copy
+		]
+		}
+	},
+	{
+		"dn":"ou=ou1,do=test2",
+		"changeType":"delete",
+		"options": {
+			"ignoreIfMissing":"true"
+		}
+	}
+]
+}
+Response
+{
+"results":[
+	{
+		"Ordinal":0...N,
+		"Response":{
+		}
+	}
+],
+"totalOperations": 2;
+"totalSuccess": 2;
+"totalWarnings":"0";
+"totalErrors": "0";
+}
 
 

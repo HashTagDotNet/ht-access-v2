@@ -1,4 +1,7 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using HT.Access.Admin.Service;
+using Microsoft.Identity.Client;
 using Serilog;
 
 namespace HT.Access.Api
@@ -11,7 +14,14 @@ namespace HT.Access.Api
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.AllowInputFormatterExceptionMessages = true;
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                });
+                
             
             builder.Services.RegisterHTAccessPersisters(builder.Configuration);
             builder.Services.LoadHTAccessConfiguration(builder.Configuration);

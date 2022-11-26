@@ -6,6 +6,8 @@ using HT.Access.Admin.Service.Cryptography.Interfaces;
 using HT.Access.Admin.Service.LDAP;
 using HT.Access.Admin.Service.LDAP.Interfaces;
 using HT.Access.Admin.Service.LDAP.Runners;
+using HT.Access.Admin.Service.Schema;
+using HT.Access.Admin.Service.Schema.Interfaces;
 using HT.Extensions.SqlClient;
 using HT.Extensions.SqlClient.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -21,8 +23,11 @@ namespace HT.Access.Admin.Service
             services.TryAddSingleton<ICryptographyService, CryptographyService>();
             services.TryAddSingleton<ILdifBuilder,LdifBuilder>();
             services.TryAddSingleton<ILdifRunner,LdifSqlRunner>();
-
             services.AddSingleton<IDomainService, DomainService>();
+
+            services.AddScoped<ISchemaService, SchemaService>();
+            services.AddScoped<ISchemaStore, SchemaStore>();
+            services.AddSingleton<ISchemaPersister, SchemaSqlPersister>();
         }
 
         public static void RegisterHTAccessPersisters(this IServiceCollection services, IConfiguration configuration)

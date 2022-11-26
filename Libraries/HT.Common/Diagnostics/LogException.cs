@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
-using System.Reflection;
 using HT.Common.Reflection;
-using System.Collections;
-using HT.Common.Collections;
 using Newtonsoft.Json;
 
 namespace HT.Common.Diagnostics
@@ -14,8 +8,8 @@ namespace HT.Common.Diagnostics
 	/// <summary>
 	/// Serializable version of a .Net exception including all inner exceptions and public properties
 	/// </summary>
-	
-	
+
+
 	public class LogException : ICloneable
 	{
 		static string[] _filterList = Reflector.GetPublicPropertyNames(typeof(Exception));
