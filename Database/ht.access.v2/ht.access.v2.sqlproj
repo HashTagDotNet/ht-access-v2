@@ -78,6 +78,11 @@
     <Build Include="HTAccess\StoredProcedure\Attribute_DeleteByName.sql" />
     <Build Include="HTAccess\StoredProcedure\Attribute_UsageCount.sql" />
     <Build Include="HTAccess\StoredProcedure\Attribute_Update.sql" />
+    <Build Include="HTAccess\StoredProcedure\ObjectClass_ExistsByName.sql" />
+    <Build Include="HTAccess\Tables\EntryObjectClasses.sql" />
+    <Build Include="HTAccess\StoredProcedure\Attribute_ExistsByName.sql" />
+    <Build Include="HTAccess\StoredProcedure\ObjectClass_Insert.sql" />
+    <Build Include="HTAccess\StoredProcedure\ObjectClassAttributes_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ht.access.v2.refactorlog" />

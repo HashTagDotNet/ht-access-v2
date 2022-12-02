@@ -7,20 +7,19 @@ namespace HT.Access.Api.Controllers.Schema
 {
     [Route("api/schema/[controller]")]
     [ApiController]
-    public class AttributesController : ControllerBase
+    public class ObjectClassesController : ControllerBase
     {
         private readonly ISchemaService _svc;
 
-        public AttributesController(ISchemaService svc)
+        public ObjectClassesController(ISchemaService svc)
         {
             _svc = svc;
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> RunBatch(AttributeBatchRequest request)
+        public async Task<IActionResult> RunBatch(ObjectClassBatchRequest request)
         {
-            var response = await _svc.ExecuteAttributeBatchAsync(request).ConfigureAwait(false);
+            var response = await _svc.ExecuteObjectClassBatchAsync(request).ConfigureAwait(false);
             return new OkObjectResult(response);
         }
     }

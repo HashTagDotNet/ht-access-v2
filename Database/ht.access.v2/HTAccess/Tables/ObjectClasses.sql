@@ -2,7 +2,7 @@
 (
 	[ObjectClassId] INT NOT NULL PRIMARY KEY IDENTITY,
 	[Name] nvarchar(60) NOT NULL,
-	[Description] nvarchar(500),
+	[Description] nvarchar(1000),
 	[IsObsolete] bit default 0 NOT NULL,
 	[IsAbstract] bit default 0 NOT NULL,
 	[IsStructural] bit default 1 NOT NULL,

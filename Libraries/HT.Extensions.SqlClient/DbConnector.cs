@@ -45,32 +45,32 @@ namespace HT.Extensions.SqlClient
         public IDbExecute Execute { get; set; }
 
         /// <summary>
-        /// <inheritdoc cref="IDbConnector.Close(SqlCommand,CancellationToken)"/>
+        /// <inheritdoc cref="IDbConnector.CloseAsync(Microsoft.Data.SqlClient.SqlCommand,System.Threading.CancellationToken)"/>
         /// </summary>
-        public async Task Close(SqlCommand command,CancellationToken cancellationToken=default)
+        public async Task CloseAsync(SqlCommand command,CancellationToken cancellationToken=default)
         {
             await _connection.Close(command,cancellationToken);
         }
         /// <summary>
         /// <inheritdoc cref="IDbConnector.Close(SqlConnection,CancellationToken)"/> (convenience method)
         /// </summary>
-        public async Task Close(SqlConnection connection,CancellationToken cancellationToken = default)
+        public async Task CloseAsync(SqlConnection connection,CancellationToken cancellationToken = default)
         {
             await _connection.Close(connection, cancellationToken);
         }
 
         /// <summary>
-        /// <inheritdoc cref="IDbConnector.Open(SqlCommand,CancellationToken)"/> (convenience method)
+        /// <inheritdoc cref="IDbConnector.OpenAsync(Microsoft.Data.SqlClient.SqlCommand,System.Threading.CancellationToken)"/> (convenience method)
         /// </summary>
-        public async Task<SqlConnection> Open(SqlCommand command,CancellationToken cancellationToken=default)
+        public async Task<SqlConnection> OpenAsync(SqlCommand command,CancellationToken cancellationToken=default)
         {
             return await _connection.Open(command, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// <inheritdoc cref="IDbConnector.Open(SqlConnection,CancellationToken)"/> (convenience method)
+        /// <inheritdoc cref="IDbConnector.OpenAsync(Microsoft.Data.SqlClient.SqlConnection,System.Threading.CancellationToken)"/> (convenience method)
         /// </summary>
-        public async Task<SqlConnection> Open(SqlConnection connection,CancellationToken cancellationToken=default)
+        public async Task<SqlConnection> OpenAsync(SqlConnection connection,CancellationToken cancellationToken=default)
         {
             return await _connection.Open(connection, cancellationToken).ConfigureAwait(false);
         }

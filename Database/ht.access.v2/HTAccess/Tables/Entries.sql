@@ -5,7 +5,6 @@
 	[DN] [nvarchar](max) NOT NULL,
 	[DN_Hash] [binary](64) NOT NULL,
 
-    [UpdatedOn] DATETIME NOT NULL DEFAULT getutcdate(), 
     CONSTRAINT [PK_Entries] PRIMARY KEY ([EntryId]),
  
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

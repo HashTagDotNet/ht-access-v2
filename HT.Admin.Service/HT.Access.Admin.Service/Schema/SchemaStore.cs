@@ -38,5 +38,20 @@ namespace HT.Access.Admin.Service.Schema
         {
             await _persister.UpdateAttribute(attribute, cancellationToken).ConfigureAwait(false);
         }
+
+        public async Task<bool> DoesObjectClassExist(string className,CancellationToken cancellationToken=default)
+        {
+            return await _persister.DoesObjectClassExist(className, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task<bool> DoesAttributeExist(string attibuteName, CancellationToken cancellationToken = default)
+        {
+            return await _persister.DoesAttributeExist(attibuteName, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task InsertObjectClass(ObjectClassModel model,CancellationToken cancellationToken=default)
+        {
+            await _persister.InsertObjectClass(model,cancellationToken).ConfigureAwait(false);
+        }
     }
 }

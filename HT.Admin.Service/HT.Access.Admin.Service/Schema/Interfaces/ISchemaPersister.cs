@@ -11,5 +11,8 @@ namespace HT.Access.Admin.Service.Schema.Interfaces
         Task<bool> IsAttributeUsed(string attributeName, CancellationToken cancellationToken = default);
         Task DeleteAttributeByName(string attributeName, CancellationToken cancellationToken = default);
         Task UpdateAttribute(AttributeModel attribute, CancellationToken cancellationToken = default);
+        Task<bool> DoesObjectClassExist(string className, CancellationToken cancellationToken = default);
+        Task<bool> DoesAttributeExist(string attributeName, CancellationToken cancellationToken = default);
+        Task InsertObjectClass(ObjectClassModel model, CancellationToken cancellationToken = default);
     }
 }

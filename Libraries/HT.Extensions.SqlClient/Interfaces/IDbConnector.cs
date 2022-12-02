@@ -27,21 +27,21 @@ namespace HT.Extensions.SqlClient.Interfaces
         /// <summary>
         /// <inheritdoc cref="IDbConnectionFactory.Close(SqlCommand,CancellationToken)"/> (convenience method)
         ///</summary>
-        Task Close(SqlCommand command,CancellationToken cancellationToken=default);
+        Task CloseAsync(SqlCommand command,CancellationToken cancellationToken=default);
         /// <summary>
         /// <inheritdoc cref="IDbConnectionFactory.Open(SqlCommand,CancellationToken)"/> (convenience method)
         ///</summary>
-        Task<SqlConnection> Open(SqlCommand command, CancellationToken cancellationToken = default);
+        Task<SqlConnection> OpenAsync(SqlCommand command, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// <inheritdoc cref="IDbConnectionFactory.Close(SqlConnection,CancellationToken)"/> (convenience method)
         ///</summary>
-        Task Close(SqlConnection connection, CancellationToken cancellationToken = default);
+        Task CloseAsync(SqlConnection connection, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// <inheritdoc cref="IDbConnectionFactory.Open(SqlConnection,CancellationToken)"/> (convenience method)
         ///</summary>
-        Task<SqlConnection> Open(SqlConnection connection, CancellationToken cancellationToken = default);
+        Task<SqlConnection> OpenAsync(SqlConnection connection, CancellationToken cancellationToken = default);
 
 
     }

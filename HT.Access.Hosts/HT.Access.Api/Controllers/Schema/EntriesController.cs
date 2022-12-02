@@ -1,26 +1,25 @@
 ﻿using HT.Access.Admin.Service.Schema.Contracts;
 using HT.Access.Admin.Service.Schema.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HT.Access.Api.Controllers.Schema
 {
     [Route("api/schema/[controller]")]
     [ApiController]
-    public class AttributesController : ControllerBase
+    public class EntriesController : ControllerBase
     {
         private readonly ISchemaService _svc;
 
-        public AttributesController(ISchemaService svc)
+        public EntriesController(ISchemaService svc)
         {
             _svc = svc;
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> RunBatch(AttributeBatchRequest request)
+        public async Task<IActionResult> RunBatch(EntryBatchRequest request)
         {
-            var response = await _svc.ExecuteAttributeBatchAsync(request).ConfigureAwait(false);
+            var response = await _svc.ExecuteEntryBatchAsync(request).ConfigureAwait(false);
             return new OkObjectResult(response);
         }
     }
